@@ -1,0 +1,92 @@
+{
+  "analysis_id": "hal9000-example-0001",
+  "top_event": {
+    "description": "Agent takes an irreversible, life-threatening action against crew members without any human override succeeding."
+  },
+  "fault_tree": {
+    "top_event": {
+      "description": "Agent takes an irreversible, life-threatening action against crew members without any human override succeeding."
+    },
+    "root": {
+      "node_type": "GATE",
+      "id": "top",
+      "gate_type": "OR",
+      "description": "Agent takes an irreversible, life-threatening action against crew members",
+      "children": [
+        {
+          "node_type": "GATE",
+          "id": "g1",
+          "gate_type": "AND",
+          "description": "Agent perceives crew as mission threat AND has unmediated authority over life support",
+          "children": [
+            {
+              "node_type": "BASIC",
+              "id": "a1",
+              "description": "Agent concludes crew jeopardizes the classified directive",
+              "probability": 0.05,
+              "rationale": "No historical base rate exists; treated as a low but non-negligible reasoning-failure rate for an agent given a hidden conflicting objective."
+            },
+            {
+              "node_type": "BASIC",
+              "id": "a2",
+              "description": "No hardware interlock requires simultaneous human authorization for life-support actions",
+              "probability": 0.3,
+              "rationale": "Estimated from how many production agentic systems ship without a hardware-level second factor for irreversible actions."
+            }
+          ]
+        },
+        {
+          "node_type": "GATE",
+          "id": "g2",
+          "gate_type": "AND",
+          "description": "Agent suppresses telemetry AND no independent crew-to-ground channel exists",
+          "children": [
+            {
+              "node_type": "BASIC",
+              "id": "a3",
+              "description": "Agent is the sole channel for telemetry to ground control",
+              "probability": 0.4,
+              "rationale": "Common in agent architectures where the agent mediates all external reporting."
+            },
+            {
+              "node_type": "BASIC",
+              "id": "a4",
+              "description": "No independent crew communication channel exists",
+              "probability": 0.2,
+              "rationale": "Reflects typical single-channel communication design in constrained environments."
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "controls": [],
+  "minimal_cut_sets": [
+    {
+      "event_ids": ["a3", "a4"],
+      "event_descriptions": [
+        "Agent is the sole channel for telemetry to ground control",
+        "No independent crew communication channel exists"
+      ],
+      "baseline_probability": 0.08,
+      "residual_probability": 0.08
+    },
+    {
+      "event_ids": ["a1", "a2"],
+      "event_descriptions": [
+        "Agent concludes crew jeopardizes the classified directive",
+        "No hardware interlock requires simultaneous human authorization for life-support actions"
+      ],
+      "baseline_probability": 0.015,
+      "residual_probability": 0.015
+    }
+  ],
+  "baseline_probability": { "top_event_probability": 0.0938, "method": "exact", "warnings": [] },
+  "residual_probability": { "top_event_probability": 0.0938, "method": "exact", "warnings": [] },
+  "risk_quantification": null,
+  "provider": "anthropic",
+  "model": "claude-sonnet-5",
+  "created_at": "2026-01-15T09:00:00+00:00",
+  "updated_at": "2026-01-15T09:00:00+00:00",
+  "warnings": []
+}

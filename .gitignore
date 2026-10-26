@@ -1,0 +1,27 @@
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+.pytest_cache/
+.mypy_cache/
+*.egg-info/
+.coverage
+htmlcov/
+
+# Node / frontend
+node_modules/
+frontend/dist/
+
+# Backend static bundle (copied in at Docker build time from frontend/dist)
+backend/app/static/
+
+# Env / secrets
+.env
+.env.local
+
+# Local SQLite analysis database
+data/
+
+# OS
+.DS_Store
